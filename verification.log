@@ -1,0 +1,24 @@
+Verification: 2026-10-25
+Host: Apple Silicon, macOS 27.0.1 (26A434)
+Xcode: 27.0 (27A5218g)
+Swift: Apple Swift 6.4.1 (swift-6.4.1-RELEASE)
+Containerization: 0.53.0, f79e412d7c31b00c65c8a6f80dd0b0bb55f6a4f7
+Guest image: ghcr.io/apple/containerization/vminit:0.53.0
+Kernel: default from fetch-default-kernel (Kata 3.17.0 arm64)
+Container filesystem: docker.io/library/alpine:3.22
+
+$ make reproduce
+swift build -Xswiftc -Xfrontend -Xswiftc -enable-cross-import-overlays
+Building for debugging...
+[5 / 5] ThreadedCgroupRepro-product
+
+Build complete! (2,42 sec)
+codesign --force --sign - --entitlements repro.entitlements .build/debug/ThreadedCgroupRepro
+.build/debug/ThreadedCgroupRepro: replacing existing signature
+/Applications/Xcode-beta.app/Contents/Developer/usr/bin/make -C .build/checkouts/containerization fetch-default-kernel
+.build/debug/ThreadedCgroupRepro
+Created empty domain cgroup; initial process exiting normally.
+domain: stop() succeeded
+Created empty threaded cgroup; initial process exiting normally.
+threaded: REPRODUCED: internalError: "failed to delete process" (cause: "internalError: "deleteProcess: failed with errno 95: failed to write to /sys/fs/cgroup/container/repro-threaded-967e02e3-e423-49cc-91c2-71fe30e1415d/nested/cgroup.kill"")
+make: *** [reproduce] Error 1

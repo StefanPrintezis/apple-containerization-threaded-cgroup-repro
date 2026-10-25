@@ -20,3 +20,5 @@ The VM stops, but `stop()` throws and leaves the container object errored. This 
 The binary exits 1 when the bug reproduces, 0 if both cases pass, or 2 for an unrelated failure. Make reports `Error 1` and exits 2 when the bug reproduces.
 
 The first run downloads dependencies, images, and the default kernel. Test VMs and their backing files are removed afterward; downloads stay cached.
+
+[Recorded output and environment](verification.log).
